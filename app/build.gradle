@@ -40,15 +40,11 @@ dependencies {
     implementation libs.appcompat
     implementation libs.constraintlayout
     implementation libs.material
-    implementation libs.tensorflow.lite
-    implementation(libs.tensorflow.lite.support) {
-        // tensorflow-lite-support 和它传递依赖的 tensorflow-lite-support-api 用了同一个
-        // manifest namespace（org.tensorflow.lite.support），新版 AGP 要求 namespace 唯一，
-        // 两者同时出现在依赖图里会导致 manifest merge 失败。我们只用基础包里的
-        // TensorImage/TensorBuffer/ResizeOp/NormalizeOp/FileUtil 等类，用不到
-        // -api 那个给 task-library 系列用的子模块，排除掉即可。
-        exclude group: "org.tensorflow", module: "tensorflow-lite-support-api"
-    }
+    // org.tensorflow:tensorflow-lite(-support) 新版会重定向到改名后的 LiteRT 坐标，
+    // 新旧坐标同时出现在依赖图里会导致 namespace 冲突，所以直接用 LiteRT。
+    // Java 包名还是 org.tensorflow.lite.*，代码不用改。
+    implementation libs.litert
+    implementation libs.litert.support
     implementation libs.exifinterface
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
