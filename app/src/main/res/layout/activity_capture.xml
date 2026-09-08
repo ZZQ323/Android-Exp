@@ -2,62 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/captureRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".MainActivity">
+    tools:context=".CaptureActivity">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
+        android:id="@+id/textCaptureTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/home_title"
-        android:textSize="28sp"
+        android:gravity="center"
+        android:text="@string/capture_title"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
-
-    <TextView
-        android:id="@+id/textSubtitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="@string/home_subtitle"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonTakePhoto"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:paddingStart="32dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="12dp"
-        android:text="@string/home_start_button"
+        android:layout_marginTop="40dp"
+        android:padding="16dp"
+        android:text="@string/capture_take_photo"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textSubtitle" />
+        app:layout_constraintTop_toBottomOf="@id/textCaptureTitle" />
 
-    <TextView
-        android:id="@+id/textModelStatus"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonPickGallery"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="@string/capture_pick_gallery"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="模型已就绪：pet_classifier.tflite（37 个品种）" />
+        app:layout_constraintTop_toBottomOf="@id/buttonTakePhoto" />
+
+    <TextView
+        android:id="@+id/textNoCamera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/capture_no_camera"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPickGallery"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

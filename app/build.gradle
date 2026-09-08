@@ -25,6 +25,10 @@ android {
             }
         }
     }
+    androidResources {
+        // TFLite 模型文件不能被 aapt 压缩，否则运行时 mmap 会失败
+        noCompress += "tflite"
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -36,6 +40,9 @@ dependencies {
     implementation libs.appcompat
     implementation libs.constraintlayout
     implementation libs.material
+    implementation libs.tensorflow.lite
+    implementation libs.tensorflow.lite.support
+    implementation libs.exifinterface
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
