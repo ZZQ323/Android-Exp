@@ -39,6 +39,7 @@ dependencies {
     implementation libs.activity.ktx
     implementation libs.appcompat
     implementation libs.constraintlayout
+    implementation libs.litert.support.api
     implementation libs.material
     // org.tensorflow:tensorflow-lite(-support) 新版会重定向到改名后的 LiteRT 坐标，
     // 新旧坐标同时出现在依赖图里会导致 namespace 冲突，所以直接用 LiteRT。
