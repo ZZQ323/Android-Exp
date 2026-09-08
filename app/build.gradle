@@ -39,7 +39,6 @@ dependencies {
     implementation libs.activity.ktx
     implementation libs.appcompat
     implementation libs.constraintlayout
-    implementation libs.litert.support.api
     implementation libs.material
     // 只用最基础的 LiteRT Interpreter（前身是 org.tensorflow:tensorflow-lite）。
     // 不用 *-support 辅助库：它的 "-support" 和 "-support-api" 两个 aar 共用同一个
