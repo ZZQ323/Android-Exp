@@ -105,9 +105,11 @@ public class PetClassifier {
         ImageProcessor.Builder builder = new ImageProcessor.Builder()
                 .add(new ResizeOp(inputHeight, inputWidth, ResizeOp.ResizeMethod.BILINEAR));
         if (inputDataType == DataType.FLOAT32) {
-            // 默认按 Keras MobileNetV2 的 preprocess_input 处理：像素从 [0,255] 映射到 [-1,1]。
-            // 如果 Colab 里训练时用的是 Rescaling(1./255)（映射到 [0,1]），
-            // 把下面这行换成 new NormalizeOp(0f, 255f)，否则识别结果会明显不对/很随机。
+            // 已经用 pet_classifier.tflite 实际的算子图核实过：输入张量后面直接就是
+            // CONV_2D（MobileNetV2 的 stem），图里没有内置任何 Rescaling/Normalize 算子，
+            // 所以缩放要在 app 这一侧做。按 Keras MobileNetV2 的 preprocess_input 惯例，
+            // 像素从 [0,255] 映射到 [-1,1]。如果之后换了别的 base model / 训练时用的是
+            // Rescaling(1./255)（映射到 [0,1]），把下面这行换成 new NormalizeOp(0f, 255f)。
             builder.add(new NormalizeOp(127.5f, 127.5f));
         }
         // 如果 inputDataType 是 UINT8（全整数量化模型），保持原始 0-255 像素值，不做归一化。
