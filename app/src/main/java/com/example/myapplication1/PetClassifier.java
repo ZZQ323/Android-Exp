@@ -48,24 +48,30 @@ public class PetClassifier {
         }
     }
 
-    /** labels.txt 每行是 "物种,品种名"，比如 "dog,Pembroke" / "cat,Abyssinian"。 */
+    /**
+     * labels.txt 每行是 "物种,英文品种名,中文品种名"，比如 "dog,Pembroke,彭布罗克威尔士柯基犬"。
+     * 也兼容只有两列（没有中文翻译）或者只有一列（纯品种名）的旧格式。
+     */
     private static class PetLabel {
         final String species;
-        final String breed;
+        final String english;
+        final String chinese;
 
-        PetLabel(String species, String breed) {
+        PetLabel(String species, String english, String chinese) {
             this.species = species;
-            this.breed = breed;
+            this.english = english;
+            this.chinese = chinese;
         }
 
         String displayName() {
+            String name = chinese.isEmpty() ? english : english + " " + chinese;
             if (species.isEmpty()) {
-                return breed;
+                return name;
             }
             String speciesZh = "dog".equalsIgnoreCase(species) ? "狗"
                     : "cat".equalsIgnoreCase(species) ? "猫"
                     : species;
-            return breed + "（" + speciesZh + "）";
+            return name + "（" + speciesZh + "）";
         }
     }
 
@@ -201,14 +207,15 @@ public class PetClassifier {
                 if (line.isEmpty()) {
                     continue;
                 }
-                int commaIndex = line.indexOf(',');
-                if (commaIndex < 0) {
-                    // 兼容没有物种前缀、每行只有品种名的旧格式
-                    result.add(new PetLabel("", line));
+                String[] parts = line.split(",", 3);
+                if (parts.length == 3) {
+                    result.add(new PetLabel(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                } else if (parts.length == 2) {
+                    // 兼容 "物种,英文品种名" 的旧格式，没有中文翻译
+                    result.add(new PetLabel(parts[0].trim(), parts[1].trim(), ""));
                 } else {
-                    String species = line.substring(0, commaIndex).trim();
-                    String breed = line.substring(commaIndex + 1).trim();
-                    result.add(new PetLabel(species, breed));
+                    // 兼容每行只有品种名的最旧格式
+                    result.add(new PetLabel("", line, ""));
                 }
             }
         }
