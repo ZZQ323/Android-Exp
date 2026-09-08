@@ -41,11 +41,11 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.litert.support.api
     implementation libs.material
-    // org.tensorflow:tensorflow-lite(-support) 新版会重定向到改名后的 LiteRT 坐标，
-    // 新旧坐标同时出现在依赖图里会导致 namespace 冲突，所以直接用 LiteRT。
-    // Java 包名还是 org.tensorflow.lite.*，代码不用改。
+    // 只用最基础的 LiteRT Interpreter（前身是 org.tensorflow:tensorflow-lite）。
+    // 不用 *-support 辅助库：它的 "-support" 和 "-support-api" 两个 aar 共用同一个
+    // manifest namespace，新版 AGP 要求 namespace 唯一，这个问题在改名叫 LiteRT
+    // 之后依然存在，所以图片缩放/归一化改成在 PetClassifier 里手写。
     implementation libs.litert
-    implementation libs.litert.support
     implementation libs.exifinterface
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
