@@ -48,8 +48,29 @@ public class PetClassifier {
         }
     }
 
+    /** labels.txt 每行是 "物种,品种名"，比如 "dog,Pembroke" / "cat,Abyssinian"。 */
+    private static class PetLabel {
+        final String species;
+        final String breed;
+
+        PetLabel(String species, String breed) {
+            this.species = species;
+            this.breed = breed;
+        }
+
+        String displayName() {
+            if (species.isEmpty()) {
+                return breed;
+            }
+            String speciesZh = "dog".equalsIgnoreCase(species) ? "狗"
+                    : "cat".equalsIgnoreCase(species) ? "猫"
+                    : species;
+            return breed + "（" + speciesZh + "）";
+        }
+    }
+
     private final Interpreter interpreter;
-    private final List<String> labels;
+    private final List<PetLabel> labels;
     private final int inputHeight;
     private final int inputWidth;
     private final DataType inputDataType;
@@ -103,7 +124,7 @@ public class PetClassifier {
 
         List<Prediction> predictions = new ArrayList<>(scores.length);
         for (int i = 0; i < scores.length && i < labels.size(); i++) {
-            predictions.add(new Prediction(labels.get(i), scores[i]));
+            predictions.add(new Prediction(labels.get(i).displayName(), scores[i]));
         }
         Collections.sort(predictions, (a, b) -> Float.compare(b.confidence, a.confidence));
         return predictions;
@@ -126,11 +147,10 @@ public class PetClassifier {
             int g = (pixel >> 8) & 0xFF;
             int b = pixel & 0xFF;
             if (inputDataType == DataType.FLOAT32) {
-                // 已经用 pet_classifier.tflite 实际的算子图核实过：输入张量后面直接就是
-                // CONV_2D（MobileNetV2 的 stem），图里没有内置任何 Rescaling/Normalize 算子，
-                // 所以缩放要在 app 这一侧做。按 Keras MobileNetV2 的 preprocess_input 惯例，
-                // 像素从 [0,255] 映射到 [-1,1]。如果之后换了别的 base model / 训练时用的是
-                // Rescaling(1./255)（映射到 [0,1]），把下面三行的 127.5f/127.5f 换成 0f/255f。
+                // 按 Keras MobileNetV2 的 preprocess_input 惯例，把像素从 [0,255] 映射到 [-1,1]。
+                // 这是针对上一版 pet_classifier.tflite 核实过的设定；换成新模型后，如果图里
+                // 没有内置 Rescaling/Normalize 算子，且训练时用的是 Rescaling(1./255)（映射到
+                // [0,1]）而不是 preprocess_input，要把下面三行的 127.5f/127.5f 换成 0f/255f。
                 buffer.putFloat((r - 127.5f) / 127.5f);
                 buffer.putFloat((g - 127.5f) / 127.5f);
                 buffer.putFloat((b - 127.5f) / 127.5f);
@@ -171,14 +191,24 @@ public class PetClassifier {
         }
     }
 
-    private List<String> loadLabels(Context context) throws IOException {
-        List<String> result = new ArrayList<>();
+    private List<PetLabel> loadLabels(Context context) throws IOException {
+        List<PetLabel> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(context.getAssets().open(LABELS_PATH), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    result.add(line.trim());
+                line = line.trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                int commaIndex = line.indexOf(',');
+                if (commaIndex < 0) {
+                    // 兼容没有物种前缀、每行只有品种名的旧格式
+                    result.add(new PetLabel("", line));
+                } else {
+                    String species = line.substring(0, commaIndex).trim();
+                    String breed = line.substring(commaIndex + 1).trim();
+                    result.add(new PetLabel(species, breed));
                 }
             }
         }
