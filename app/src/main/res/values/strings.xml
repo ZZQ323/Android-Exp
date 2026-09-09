@@ -11,6 +11,7 @@
     <string name="home_model_status_missing">缺少 %1$s / %2$s</string>
 
     <!-- CaptureActivity -->
+    <string name="capture_title_placeholder">选择一张照片</string>
     <string name="capture_title_format">选择一张%1$s的照片</string>
     <string name="capture_take_photo">拍照</string>
     <string name="capture_pick_gallery">从相册选择</string>
