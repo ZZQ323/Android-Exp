@@ -22,7 +22,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 加载 assets/pet_classifier.tflite + assets/labels.txt 并跑单张图片推理。
+ * 加载 assets/ 下指定的 .tflite 模型 + 标签文件并跑单张图片推理。同一个类给猫、狗两个
+ * 独立模型共用——先选物种再调对应的 cat_classifier.tflite/dog_classifier.tflite，
+ * 而不是用一个塞了猫狗两百多类的大模型（那样类别数悬殊会让模型学会"蒙成大类"的捷径）。
  *
  * 特意没用 org.tensorflow.lite.support 那套辅助库（TensorImage/ImageProcessor 之类）：
  * 它的 "-support" 和 "-support-api" 两个 aar 共用同一个 manifest namespace，新版 AGP
@@ -34,9 +36,6 @@ import java.util.List;
  * 必须和训练时的预处理一致，见下面 bitmapToInputBuffer 里的注释。
  */
 public class PetClassifier {
-
-    private static final String MODEL_PATH = "pet_classifier.tflite";
-    private static final String LABELS_PATH = "labels.txt";
 
     public static class Prediction {
         public final String label;
@@ -83,13 +82,17 @@ public class PetClassifier {
     private final int numClasses;
     private final DataType outputDataType;
 
-    public PetClassifier(Context context) throws IOException {
-        MappedByteBuffer modelBuffer = loadModelFile(context);
+    /**
+     * @param modelFileName  assets/ 下的 .tflite 文件名，比如 "cat_classifier.tflite"
+     * @param labelsFileName assets/ 下对应的标签文件名，比如 "cat_labels.txt"
+     */
+    public PetClassifier(Context context, String modelFileName, String labelsFileName) throws IOException {
+        MappedByteBuffer modelBuffer = loadModelFile(context, modelFileName);
         Interpreter.Options options = new Interpreter.Options();
         options.setNumThreads(4);
         interpreter = new Interpreter(modelBuffer, options);
 
-        labels = loadLabels(context);
+        labels = loadLabels(context, labelsFileName);
 
         int[] inputShape = interpreter.getInputTensor(0).shape(); // [1, height, width, 3]
         inputHeight = inputShape[1];
@@ -188,8 +191,8 @@ public class PetClassifier {
         return scores;
     }
 
-    private MappedByteBuffer loadModelFile(Context context) throws IOException {
-        try (AssetFileDescriptor fileDescriptor = context.getAssets().openFd(MODEL_PATH);
+    private MappedByteBuffer loadModelFile(Context context, String modelFileName) throws IOException {
+        try (AssetFileDescriptor fileDescriptor = context.getAssets().openFd(modelFileName);
              FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor())) {
             FileChannel fileChannel = inputStream.getChannel();
             return fileChannel.map(FileChannel.MapMode.READ_ONLY,
@@ -197,10 +200,10 @@ public class PetClassifier {
         }
     }
 
-    private List<PetLabel> loadLabels(Context context) throws IOException {
+    private List<PetLabel> loadLabels(Context context, String labelsFileName) throws IOException {
         List<PetLabel> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(context.getAssets().open(LABELS_PATH), StandardCharsets.UTF_8))) {
+                new InputStreamReader(context.getAssets().open(labelsFileName), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();

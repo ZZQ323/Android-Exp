@@ -6,6 +6,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
@@ -23,6 +24,7 @@ import java.util.List;
 public class CaptureActivity extends AppCompatActivity {
 
     private Uri cameraPhotoUri;
+    private Species species;
 
     private final ActivityResultLauncher<Uri> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.TakePicture(), success -> {
@@ -42,6 +44,10 @@ public class CaptureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capture);
+
+        species = readSpeciesFromIntent();
+        TextView title = findViewById(R.id.textCaptureTitle);
+        title.setText(getString(R.string.capture_title_format, species.displayNameZh));
 
         boolean hasCamera = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
         findViewById(R.id.buttonTakePhoto).setEnabled(hasCamera);
@@ -82,6 +88,12 @@ public class CaptureActivity extends AppCompatActivity {
     private void openResult(Uri imageUri) {
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, imageUri);
+        intent.putExtra(Species.EXTRA_KEY, species.name());
         startActivity(intent);
+    }
+
+    private Species readSpeciesFromIntent() {
+        String name = getIntent().getStringExtra(Species.EXTRA_KEY);
+        return name != null ? Species.valueOf(name) : Species.DOG;
     }
 }

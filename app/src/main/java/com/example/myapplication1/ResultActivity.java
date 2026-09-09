@@ -33,6 +33,7 @@ public class ResultActivity extends AppCompatActivity {
     private ProgressBar progressRunning;
     private TextView textTop1;
     private TextView textTopK;
+    private Species species;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,9 @@ public class ResultActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        String speciesName = getIntent().getStringExtra(Species.EXTRA_KEY);
+        species = speciesName != null ? Species.valueOf(speciesName) : Species.DOG;
 
         Uri imageUri = getImageUriFromIntent();
         if (imageUri == null) {
@@ -87,7 +91,7 @@ public class ResultActivity extends AppCompatActivity {
 
             PetClassifier classifier = null;
             try {
-                classifier = new PetClassifier(this);
+                classifier = new PetClassifier(this, species.modelFileName, species.labelsFileName);
                 List<PetClassifier.Prediction> predictions = classifier.classify(bitmap);
                 showPredictions(predictions);
             } catch (IOException e) {
