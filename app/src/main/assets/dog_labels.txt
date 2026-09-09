@@ -1,120 +1,120 @@
-Chihuahua
-Japanese spaniel
-Maltese dog
-Pekinese
-Shih-Tzu
-Blenheim spaniel
-papillon
-toy terrier
-Rhodesian ridgeback
-Afghan hound
-basset
-beagle
-bloodhound
-bluetick
-black-and-tan coonhound
-Walker hound
-English foxhound
-redbone
-borzoi
-Irish wolfhound
-Italian greyhound
-whippet
-Ibizan hound
-Norwegian elkhound
-otterhound
-Saluki
-Scottish deerhound
-Weimaraner
-Staffordshire bullterrier
-American Staffordshire terrier
-Bedlington terrier
-Border terrier
-Kerry blue terrier
-Irish terrier
-Norfolk terrier
-Norwich terrier
-Yorkshire terrier
-wire-haired fox terrier
-Lakeland terrier
-Sealyham terrier
-Airedale
-cairn
-Australian terrier
-Dandie Dinmont
-Boston bull
-miniature schnauzer
-giant schnauzer
-standard schnauzer
-Scotch terrier
-Tibetan terrier
-silky terrier
-soft-coated wheaten terrier
-West Highland white terrier
-Lhasa
-flat-coated retriever
-curly-coated retriever
-golden retriever
-Labrador retriever
-Chesapeake Bay retriever
-German short-haired pointer
-vizsla
-English setter
-Irish setter
-Gordon setter
-Brittany spaniel
-clumber
-English springer
-Welsh springer spaniel
-cocker spaniel
-Sussex spaniel
-Irish water spaniel
-kuvasz
-schipperke
-groenendael
-malinois
-briard
-kelpie
-komondor
-Old English sheepdog
-Shetland sheepdog
-collie
-Border collie
-Bouvier des Flandres
-Rottweiler
-German shepherd
-Doberman
-miniature pinscher
-Greater Swiss Mountain dog
-Bernese mountain dog
-Appenzeller
-EntleBucher
-boxer
-bull mastiff
-Tibetan mastiff
-French bulldog
-Great Dane
-Saint Bernard
-Eskimo dog
-malamute
-Siberian husky
-affenpinscher
-basenji
-pug
-Leonberg
-Newfoundland
-Great Pyrenees
-Samoyed
-Pomeranian
-chow
-keeshond
-Brabancon griffon
-Pembroke
-Cardigan
-toy poodle
-miniature poodle
-standard poodle
-Mexican hairless
-dingo
-dhole
-African hunting dog
+Chihuahua,吉娃娃
+Japanese spaniel,日本狆
+Maltese dog,马尔济斯犬
+Pekinese,京巴犬
+Shih-Tzu,西施犬
+Blenheim spaniel,布伦海姆猎鹬犬
+papillon,蝴蝶犬
+toy terrier,玩具梗
+Rhodesian ridgeback,罗得西亚脊背犬
+Afghan hound,阿富汗猎犬
+basset,巴吉度猎犬
+beagle,比格犬
+bloodhound,寻血猎犬
+bluetick,蓝色快跑猎浣熊犬
+black-and-tan coonhound,黑褐猎浣熊犬
+Walker hound,沃克猎犬
+English foxhound,英国猎狐犬
+redbone,红骨猎浣熊犬
+borzoi,俄罗斯猎狼犬
+Irish wolfhound,爱尔兰猎狼犬
+Italian greyhound,意大利灵缇
+whippet,惠比特犬
+Ibizan hound,依比沙猎犬
+Norwegian elkhound,挪威猎麋犬
+otterhound,奥达猎犬
+Saluki,萨路基猎犬
+Scottish deerhound,苏格兰猎鹿犬
+Weimaraner,魏玛猎犬
+Staffordshire bullterrier,斯塔福郡斗牛梗
+American Staffordshire terrier,美国斯塔福梗
+Bedlington terrier,贝灵顿梗
+Border terrier,边境梗
+Kerry blue terrier,凯利蓝梗
+Irish terrier,爱尔兰梗
+Norfolk terrier,诺福克梗
+Norwich terrier,诺维奇梗
+Yorkshire terrier,约克夏梗
+wire-haired fox terrier,硬毛猎狐梗
+Lakeland terrier,湖畔梗
+Sealyham terrier,西里汉梗
+Airedale,万能梗
+cairn,凯恩梗
+Australian terrier,澳大利亚梗
+Dandie Dinmont,丹迪丁蒙梗
+Boston bull,波士顿梗
+miniature schnauzer,迷你雪纳瑞
+giant schnauzer,巨型雪纳瑞
+standard schnauzer,标准雪纳瑞
+Scotch terrier,苏格兰梗
+Tibetan terrier,西藏梗
+silky terrier,丝毛梗
+soft-coated wheaten terrier,软毛麦色梗
+West Highland white terrier,西高地白梗
+Lhasa,拉萨犬
+flat-coated retriever,平毛寻回犬
+curly-coated retriever,卷毛寻回犬
+golden retriever,金毛寻回犬
+Labrador retriever,拉布拉多寻回犬
+Chesapeake Bay retriever,乞沙比克猎犬
+German short-haired pointer,德国短毛指示犬
+vizsla,维兹拉犬
+English setter,英国塞特犬
+Irish setter,爱尔兰塞特犬
+Gordon setter,戈登塞特犬
+Brittany spaniel,布列塔尼猎犬
+clumber,克伦伯猎鹬犬
+English springer,英国史宾格犬
+Welsh springer spaniel,威尔士史宾格犬
+cocker spaniel,可卡犬
+Sussex spaniel,萨塞克斯猎犬
+Irish water spaniel,爱尔兰水猎犬
+kuvasz,库瓦兹犬
+schipperke,舒柏奇犬
+groenendael,格罗安达犬
+malinois,马利诺斯犬
+briard,伯瑞犬
+kelpie,凯尔皮犬
+komondor,可蒙犬
+Old English sheepdog,古代英国牧羊犬
+Shetland sheepdog,喜乐蒂牧羊犬
+collie,柯利牧羊犬
+Border collie,边境牧羊犬
+Bouvier des Flandres,法兰德斯畜牧犬
+Rottweiler,罗威纳犬
+German shepherd,德国牧羊犬
+Doberman,杜宾犬
+miniature pinscher,迷你杜宾犬
+Greater Swiss Mountain dog,大瑞士山地犬
+Bernese mountain dog,伯恩山犬
+Appenzeller,阿彭策尔山地犬
+EntleBucher,恩特雷布赫山地犬
+boxer,拳师犬
+bull mastiff,斗牛獒
+Tibetan mastiff,藏獒
+French bulldog,法国斗牛犬
+Great Dane,大丹犬
+Saint Bernard,圣伯纳犬
+Eskimo dog,爱斯基摩犬
+malamute,阿拉斯加雪橇犬
+Siberian husky,西伯利亚哈士奇
+affenpinscher,猴梗
+basenji,巴仙吉犬
+pug,巴哥犬
+Leonberg,莱昂贝格犬
+Newfoundland,纽芬兰犬
+Great Pyrenees,大白熊犬
+Samoyed,萨摩耶犬
+Pomeranian,博美犬
+chow,松狮犬
+keeshond,荷兰毛狮犬
+Brabancon griffon,布鲁塞尔格里芬犬
+Pembroke,彭布罗克威尔士柯基犬
+Cardigan,卡迪根威尔士柯基犬
+toy poodle,玩具贵宾犬
+miniature poodle,迷你贵宾犬
+standard poodle,标准贵宾犬
+Mexican hairless,墨西哥无毛犬
+dingo,澳洲野犬
+dhole,亚洲野犬
+African hunting dog,非洲野犬

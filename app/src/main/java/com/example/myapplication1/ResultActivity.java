@@ -91,7 +91,7 @@ public class ResultActivity extends AppCompatActivity {
 
             PetClassifier classifier = null;
             try {
-                classifier = new PetClassifier(this, species.modelFileName, species.labelsFileName);
+                classifier = new PetClassifier(this, species.modelFileName, species.labelsFileName, species.displayNameZh);
                 List<PetClassifier.Prediction> predictions = classifier.classify(bitmap);
                 showPredictions(predictions);
             } catch (IOException e) {

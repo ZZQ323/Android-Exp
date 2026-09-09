@@ -1,20 +1,20 @@
-Abyssinian
-American Bobtail
-American Curl
-American Shorthair
-Bengal
-Birman
-Bombay
-British Shorthair
-Egyptian Mau
-Exotic Shorthair
-Maine Coon
-Manx
-Norwegian Forest
-Persian
-Ragdoll
-Russian Blue
-Scottish Fold
-Siamese
-Sphynx
-Turkish Angora
+Abyssinian,阿比西尼亚猫
+American Bobtail,美国短尾猫
+American Curl,美国卷耳猫
+American Shorthair,美国短毛猫
+Bengal,孟加拉猫
+Birman,伯曼猫
+Bombay,孟买猫
+British Shorthair,英国短毛猫
+Egyptian Mau,埃及猫
+Exotic Shorthair,异国短毛猫
+Maine Coon,缅因猫
+Manx,曼岛猫
+Norwegian Forest,挪威森林猫
+Persian,波斯猫
+Ragdoll,布偶猫
+Russian Blue,俄罗斯蓝猫
+Scottish Fold,苏格兰折耳猫
+Siamese,暹罗猫
+Sphynx,斯芬克斯猫
+Turkish Angora,土耳其安哥拉猫

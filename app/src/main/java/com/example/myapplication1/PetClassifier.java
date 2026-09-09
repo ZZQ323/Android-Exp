@@ -48,34 +48,28 @@ public class PetClassifier {
     }
 
     /**
-     * labels.txt 每行是 "物种,英文品种名,中文品种名"，比如 "dog,Pembroke,彭布罗克威尔士柯基犬"。
-     * 也兼容只有两列（没有中文翻译）或者只有一列（纯品种名）的旧格式。
+     * cat_labels.txt / dog_labels.txt 每行是 "英文品种名,中文品种名"，比如
+     * "Pembroke,彭布罗克威尔士柯基犬"；没有中文翻译时只有一列也兼容（纯英文品种名）。
+     * 物种（猫/狗）不需要再放进标签文件里——用哪个文件就代表哪个物种，见 speciesZh。
      */
     private static class PetLabel {
-        final String species;
         final String english;
         final String chinese;
 
-        PetLabel(String species, String english, String chinese) {
-            this.species = species;
+        PetLabel(String english, String chinese) {
             this.english = english;
             this.chinese = chinese;
         }
 
-        String displayName() {
+        String displayName(String speciesZh) {
             String name = chinese.isEmpty() ? english : english + " " + chinese;
-            if (species.isEmpty()) {
-                return name;
-            }
-            String speciesZh = "dog".equalsIgnoreCase(species) ? "狗"
-                    : "cat".equalsIgnoreCase(species) ? "猫"
-                    : species;
-            return name + "（" + speciesZh + "）";
+            return speciesZh.isEmpty() ? name : name + "（" + speciesZh + "）";
         }
     }
 
     private final Interpreter interpreter;
     private final List<PetLabel> labels;
+    private final String speciesZh;
     private final int inputHeight;
     private final int inputWidth;
     private final DataType inputDataType;
@@ -85,8 +79,11 @@ public class PetClassifier {
     /**
      * @param modelFileName  assets/ 下的 .tflite 文件名，比如 "cat_classifier.tflite"
      * @param labelsFileName assets/ 下对应的标签文件名，比如 "cat_labels.txt"
+     * @param speciesZh      结果里追加显示的物种中文名（"猫"/"狗"），传空字符串就不显示
      */
-    public PetClassifier(Context context, String modelFileName, String labelsFileName) throws IOException {
+    public PetClassifier(Context context, String modelFileName, String labelsFileName, String speciesZh)
+            throws IOException {
+        this.speciesZh = speciesZh;
         MappedByteBuffer modelBuffer = loadModelFile(context, modelFileName);
         Interpreter.Options options = new Interpreter.Options();
         options.setNumThreads(4);
@@ -133,7 +130,7 @@ public class PetClassifier {
 
         List<Prediction> predictions = new ArrayList<>(scores.length);
         for (int i = 0; i < scores.length && i < labels.size(); i++) {
-            predictions.add(new Prediction(labels.get(i).displayName(), scores[i]));
+            predictions.add(new Prediction(labels.get(i).displayName(speciesZh), scores[i]));
         }
         Collections.sort(predictions, (a, b) -> Float.compare(b.confidence, a.confidence));
         return predictions;
@@ -210,16 +207,10 @@ public class PetClassifier {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] parts = line.split(",", 3);
-                if (parts.length == 3) {
-                    result.add(new PetLabel(parts[0].trim(), parts[1].trim(), parts[2].trim()));
-                } else if (parts.length == 2) {
-                    // 兼容 "物种,英文品种名" 的旧格式，没有中文翻译
-                    result.add(new PetLabel(parts[0].trim(), parts[1].trim(), ""));
-                } else {
-                    // 兼容每行只有品种名的最旧格式
-                    result.add(new PetLabel("", line, ""));
-                }
+                String[] parts = line.split(",", 2);
+                String english = parts[0].trim();
+                String chinese = parts.length == 2 ? parts[1].trim() : "";
+                result.add(new PetLabel(english, chinese));
             }
         }
         return result;
